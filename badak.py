@@ -379,10 +379,11 @@ async def coin_price(interaction: nextcord.Interaction,
     coin_all_list = response.json()
     print(">>>>>>>>>>>>>>>>>>>>>>> 코인 거래가 바닥가 검색")
     index_coin = 0;
-    coin.split('-')
+    coin.split('(')
+    coin.split(')')
     for i in range(len(coin_all_list)):
         temp = coin_all_list[i]
-        if temp['korean_name']==(coin[len(coin)-1]):
+        if temp['korean_name']==(coin[0]):
             index_coin = i    
     print('>>>>>>>>>>>>>> index_coin : '+str(index_coin))
     coin_keyword = coin_all_list[index_coin]['market']
@@ -413,7 +414,7 @@ async def autocomplete_coin_price(interaction: nextcord.Interaction, coin: str):
     coin_all_list = response.json()
     coin_list=[]
     for i in range(len(coin_all_list)):
-        coin_list.append(coin_all_list[i]['korean_name']+'-'+coin_all_list[i]['market'])
+        coin_list.append(coin_all_list[i]['korean_name']+'('+coin_all_list[i]['market']+')')
     filtered_coin_list=sorted(coin_list)
     if coin:
         filtered_coin_list = sorted([i for i in filtered_coin_list if i.startswith(coin.lower())])

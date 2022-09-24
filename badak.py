@@ -370,6 +370,49 @@ async def my_item(interaction: nextcord.Interaction,
         embed = discord.Embed(title="**!Error" ,description='Wrong Address', color=0xe74c3c)
         await interaction.response.send_message(embed=embed,ephemeral = True)
 
+@bot.slash_command(description="Search Coin Price(코인 거래가 검색)")
+async def coin_price(interaction: nextcord.Interaction,
+    coin: str = SlashOption(name="coin", description="프로젝트 명을 입력하세요 (Enter Project Name)",autocomplete=True),
+    ):
+    url_all_coin = "https://api.upbit.com/v1/market/all"
+    response = requests.request("GET", url_all_coin)
+    coin_all_list = response.json()
+    print(">>>>>>>>>>>>>>>>>>>>>>> 코인 거래가 바닥가 검색")
+    index_coin = 0;
+    for i in range(len(coin_all_list)):
+        temp = coin_all_list[i]
+        index_coin = temp['korean_name'].index(coin)
+    coin_keyword = coin_all_list[index_coin]['market']
+    coin_name = coin_all_list[index_coin]['korean_name']
+    try:
+        url = f"https://api.upbit.com/v1/ticker?markets={coin_keyword}"
+        response_c = requests.request("GET", url)
+        trade_date = response_c.json()['trade_date']
+        trade_price = response_c.json()['trade_price']
+        embed = discord.Embed(title=coin_name ,description='', color=0x3498db)
+        embed.add_field(name="거래 일시", value={trade_date}, inline=False)
+        embed.add_field(name="거래 가격", value={trade_price}, inline=False)
+        embed.set_footer(text="Honey Bottle🍯 | Badak")
+        await interaction.response.send_message(embed=embed) # f-string 사용
+    except KeyError:
+        embed = discord.Embed(title="Error" ,description='Wrong Coin Name', color=0xe74c3c)
+        await interaction.response.send_message(embed=embed,ephemeral = True)
+    except TypeError:
+        embed = discord.Embed(title="Error" ,description='Wrong Coin Name', color=0xe74c3c)
+        await interaction.response.send_message(embed=embed,ephemeral = True)
+        
+@select_project.on_autocomplete("project")
+async def coin_price(interaction: nextcord.Interaction, project: str):
+    filtered_project=sorted(worksheet.col_values(1))
+    if project:
+        filtered_project = sorted([i for i in filtered_project if i.startswith(project.lower())])
+    temp=[]
+    if len(filtered_project)>25:
+        for i in range(25):
+            temp.append(filtered_project[i])
+        filtered_project=temp
+
+    await interaction.response.send_autocomplete(filtered_project)
 
 token=os.environ.get('token')      
 port = int(os.environ.get("PORT", 17995))

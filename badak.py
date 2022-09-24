@@ -383,11 +383,14 @@ async def coin_price(interaction: nextcord.Interaction,
         temp = coin_all_list[i]
         if temp['korean_name']==(coin):
             index_coin = i    
+    print('>>>>>>>>>>>>>> index_coin : '+str(index_coin))
     coin_keyword = coin_all_list[index_coin]['market']
     coin_name = coin_all_list[index_coin]['korean_name']
+    print('>>>>>>>>>>>>>> coin_keyword : '+str(coin_keyword))
     # try:
     url = f"https://api.upbit.com/v1/ticker?markets={coin_keyword}"
     response_c = requests.request("GET", url)
+    print(response_c.json())
     trade_date = response_c.json()['trade_date']
     trade_price = response_c.json()['trade_price']
     embed = discord.Embed(title=coin_name ,description='', color=0x3498db)

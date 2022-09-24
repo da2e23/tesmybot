@@ -406,6 +406,7 @@ async def coin_price(interaction: nextcord.Interaction, coin: str):
     url_all_coin = "https://api.upbit.com/v1/market/all"
     response = requests.request("GET", url_all_coin)
     coin_all_list = response.json()
+    print(coin_all_list)
     coin_list=[]
     for i in range(len(coin_all_list)):
         coin_list.append(coin_all_list[i]['korean_name'])

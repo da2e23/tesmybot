@@ -413,7 +413,7 @@ async def autocomplete_coin_price(interaction: nextcord.Interaction, coin: str):
     coin_all_list = response.json()
     coin_list=[]
     for i in range(len(coin_all_list)):
-        coin_list.append(coin_all_list[i]['korean_name']+'-'+coin_all_list[i]['korean_name'])
+        coin_list.append(coin_all_list[i]['korean_name']+'-'+coin_all_list[i]['market'])
     filtered_coin_list=sorted(coin_list)
     if coin:
         filtered_coin_list = sorted([i for i in filtered_coin_list if i.startswith(coin.lower())])

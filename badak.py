@@ -402,17 +402,20 @@ async def coin_price(interaction: nextcord.Interaction,
         await interaction.response.send_message(embed=embed,ephemeral = True)
         
 @select_project.on_autocomplete("project")
-async def coin_price(interaction: nextcord.Interaction, project: str):
-    filtered_project=sorted(worksheet.col_values(1))
-    if project:
-        filtered_project = sorted([i for i in filtered_project if i.startswith(project.lower())])
+async def coin_price(interaction: nextcord.Interaction, coin: str):
+    url_all_coin = "https://api.upbit.com/v1/market/all"
+    response = requests.request("GET", url_all_coin)
+    coin_list = response.json()['korean_name']
+    filtered_coin_list=sorted(coin_list)
+    if coin:
+        filtered_coin_list = sorted([i for i in filtered_coin_list if i.startswith(coin.lower())])
     temp=[]
-    if len(filtered_project)>25:
+    if len(filtered_coin_list)>25:
         for i in range(25):
-            temp.append(filtered_project[i])
-        filtered_project=temp
+            temp.append(filtered_coin_list[i])
+        filtered_coin_list=temp
 
-    await interaction.response.send_autocomplete(filtered_project)
+    await interaction.response.send_autocomplete(filtered_coin_list)
 
 token=os.environ.get('token')      
 port = int(os.environ.get("PORT", 17995))

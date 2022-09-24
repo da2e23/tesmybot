@@ -380,7 +380,7 @@ async def coin_price(interaction: nextcord.Interaction,
     print(">>>>>>>>>>>>>>>>>>>>>>> 코인 거래가 바닥가 검색")
     index_coin = 0
     coin_name = coin.split('(')
-    coin_name[2].split(')')
+    coin_name[len(coin_name)-1].split(')')
     print( coin_name[2])
     for i in range(len(coin_all_list)):
         temp = coin_all_list[i]

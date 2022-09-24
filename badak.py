@@ -378,12 +378,12 @@ async def coin_price(interaction: nextcord.Interaction,
     response = requests.request("GET", url_all_coin)
     coin_all_list = response.json()
     print(">>>>>>>>>>>>>>>>>>>>>>> 코인 거래가 바닥가 검색")
-    index_coin = 0;
+    index_coin = 0
     coin.split('(')
     coin.split(')')
     for i in range(len(coin_all_list)):
         temp = coin_all_list[i]
-        if temp['korean_name']==(coin[0]):
+        if temp['market']==(coin[0]):
             index_coin = i    
     print('>>>>>>>>>>>>>> index_coin : '+str(index_coin))
     coin_keyword = coin_all_list[index_coin]['market']

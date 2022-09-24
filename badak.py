@@ -405,7 +405,10 @@ async def coin_price(interaction: nextcord.Interaction,
 async def coin_price(interaction: nextcord.Interaction, coin: str):
     url_all_coin = "https://api.upbit.com/v1/market/all"
     response = requests.request("GET", url_all_coin)
-    coin_list = response.json()['korean_name']
+    coin_all_list = response.json()
+    coin_list=[]
+    for i in range(len(coin_all_list)):
+        coin_list.append(coin_all_list[i]['korean_name'])
     filtered_coin_list=sorted(coin_list)
     if coin:
         filtered_coin_list = sorted([i for i in filtered_coin_list if i.startswith(coin.lower())])

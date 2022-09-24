@@ -380,18 +380,10 @@ async def coin_price(interaction: nextcord.Interaction,
     print(">>>>>>>>>>>>>>>>>>>>>>> 코인 거래가 바닥가 검색")
     index_coin = 0
     coin_name = coin.split('(')
-    coin_name[len(coin_name)-1].split(')')
-    print( coin_name[len(coin_name)-1])
-    for i in range(len(coin_all_list)):
-        temp = coin_all_list[i]
-        if temp['market']==(coin[0]):
-            index_coin = i    
-    print('>>>>>>>>>>>>>> index_coin : '+str(index_coin))
-    coin_keyword = coin_all_list[index_coin]['market']
-    coin_name = coin_all_list[index_coin]['korean_name']
-    print('>>>>>>>>>>>>>> coin_keyword : '+str(coin_keyword))
+    coin_keyword=coin_name[len(coin_name)-1].split(')')
+    print('>>>>>>>>>>>>>> coin_keyword : '+str(coin_keyword[0]))
     # try:
-    url = f"https://api.upbit.com/v1/ticker?markets={coin_keyword}"
+    url = f"https://api.upbit.com/v1/ticker?markets={coin_keyword[0]}"
     response_c = requests.request("GET", url)
     print(response_c.json())
     trade_date = response_c.json()[0]['trade_date']

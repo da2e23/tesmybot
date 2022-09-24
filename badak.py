@@ -119,24 +119,18 @@ async def input_project(interaction: nextcord.Interaction,
         await interaction.response.send_message(embed=embed) # f-string 사용
         return None
     else: 
-        url = "https://api.opensea.io/api/v1/collection/{project}?format=json"
+        url = f"https://api.opensea.io/api/v1/collection/{project}?format=json"
         response = requests.request("GET", url)
-        project_name  = response.json()['collection']['name']
-        worksheet.append_row([project])
-        embed = discord.Embed(title=project_name ,description=project_name+'를 추가하였습니다.', color=0x3498db)
-        embed.add_field(name="Open Sea", value=f"[link](https://opensea.io/collection/{project})", inline=False)
-        embed.set_footer(text="Honey Bottle🍯 | Badak")
-        await interaction.response.send_message(embed=embed)
-        # try:    
-            # project_name  = response.json()['collection']['name']
-            # worksheet.append_row([project])
-            # embed = discord.Embed(title=project_name ,description=project_name+'를 추가하였습니다.', color=0x3498db)
-            # embed.add_field(name="Open Sea", value=f"[link](https://opensea.io/collection/{project})", inline=False)
-            # embed.set_footer(text="Honey Bottle🍯 | Badak")
-            # await interaction.response.send_message(embed=embed)
-        # except KeyError:
-        #     embed = nextcord.Embed(title="Error" ,description='You enter wrong keyword', color=0xe74c3c)
-        #     await interaction.response.send_message(embed=embed,ephemeral = True)
+        try:    
+            project_name  = response.json()['collection']['name']
+            worksheet.append_row([project])
+            embed = discord.Embed(title=project_name ,description=project_name+'를 추가하였습니다.', color=0x3498db)
+            embed.add_field(name="Open Sea", value=f"[link](https://opensea.io/collection/{project})", inline=False)
+            embed.set_footer(text="Honey Bottle🍯 | Badak")
+            await interaction.response.send_message(embed=embed)
+        except KeyError:
+            embed = nextcord.Embed(title="Error" ,description='You enter wrong keyword', color=0xe74c3c)
+            await interaction.response.send_message(embed=embed,ephemeral = True)
     # else:
     #     embed = discord.Embed(title="Error" ,description='이곳에서는 입력할 수 없는 명령어 입니다.', color=0x62c1cc)
     #     embed.set_footer(text="Honey Bottle")

@@ -381,7 +381,7 @@ async def coin_price(interaction: nextcord.Interaction,
     index_coin = 0
     coin_name = coin.split('(')
     coin_name[len(coin_name)-1].split(')')
-    print( coin_name[2])
+    print( coin_name[len(coin_name)-1])
     for i in range(len(coin_all_list)):
         temp = coin_all_list[i]
         if temp['market']==(coin[0]):

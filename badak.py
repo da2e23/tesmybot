@@ -401,7 +401,7 @@ async def coin_price(interaction: nextcord.Interaction,
         embed = discord.Embed(title="Error" ,description='Wrong Coin Name', color=0xe74c3c)
         await interaction.response.send_message(embed=embed,ephemeral = True)
         
-@select_project.on_autocomplete("project")
+@select_project.on_autocomplete("coin")
 async def coin_price(interaction: nextcord.Interaction, coin: str):
     url_all_coin = "https://api.upbit.com/v1/market/all"
     response = requests.request("GET", url_all_coin)

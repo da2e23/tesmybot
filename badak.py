@@ -396,8 +396,8 @@ async def coin_price(interaction: nextcord.Interaction,
     print(response_c.json())
     trade_date = response_c.json()[0]['trade_date']
     trade_price = response_c.json()[0]['trade_price']
-    embed = discord.Embed(title=coin_name+'(in Upbit)' ,description='', color=0x3498db)
-    embed.add_field(name="거래 일시", value=trade_date, inline=False)
+    embed = discord.Embed(title=coin_name+'(coin_keyword) by.Upbit' ,description='', color=0x3498db)
+    embed.add_field(name="거래 일시", value=trade_date.strftime('%Y-%m-%d'), inline=False)
     embed.add_field(name="거래 가격", value=format(trade_price,','), inline=False)
     embed.set_footer(text="Honey Bottle🍯 | Badak")
     await interaction.response.send_message(embed=embed) # f-string 사용

@@ -435,8 +435,8 @@ async def usd_to_krw(interaction: nextcord.Interaction,
     ):
     show_krw_price = dollar*upbit_get_usd_krw()
     embed = discord.Embed(title='USD To KRW' ,description='', color=0x3498db)
-    embed.add_field(name="USD", value='$'+str(format(dollar,',')), inline=False)
-    embed.add_field(name="KRW", value=format(show_krw_price,','), inline=False)
+    embed.add_field(name="USD", value='$ '+str(format(dollar,',')), inline=False)
+    embed.add_field(name="KRW", value=str(format(show_krw_price,','))+'원', inline=False)
     embed.set_footer(text="Honey Bottle🍯 | Badak")
     await interaction.response.send_message(embed=embed) # f-string 사용
 token=os.environ.get('token')      

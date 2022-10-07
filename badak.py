@@ -455,7 +455,7 @@ async def krw_to_usd(interaction: nextcord.Interaction,
 async def magiceden_project(interaction: nextcord.Interaction,
     project: int = SlashOption(name="project", description="프로젝트 명을 입력하세요 (Enter Project Name)"),
     ):
-    url = "api-devnet.magiceden.dev/v2/collections/runcible/stats"
+    url = "api-devnet.magiceden.dev/v2/collections/{project}/stats"
     payload={}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)

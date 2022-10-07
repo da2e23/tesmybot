@@ -450,7 +450,58 @@ async def krw_to_usd(interaction: nextcord.Interaction,
     embed.add_field(name="USD", value='$ '+str(format(show_usd_price,',')), inline=False)
     embed.set_footer(text="Honey Bottle🍯 | Badak")
     await interaction.response.send_message(embed=embed) # f-string 사용
-    
+
+@bot.slash_command(description="매직에덴 바닥가(Magic Eden Floor Price")
+async def magiceden_project(interaction: nextcord.Interaction,
+    project: int = SlashOption(name="project", description="프로젝트 명을 입력하세요 (Enter Project Name)"),
+    ):
+    url = "api-devnet.magiceden.dev/v2/collections/runcible/stats"
+    payload={}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    project_name  = response.json()['symbol']
+    print(project_name)
+    # try:
+    #     print(">>>>>>>>>>>>>>>>>>>>>>> 바닥가 검색")
+    #     project_name  = response.json()['symbol']
+    #     # pay_token  = response.json()['collection']['payment_tokens'][0]['symbol']
+    #     # usd_price  = response.json()['collection']['payment_tokens'][0]['usd_price']
+    #     # if pay_token != "ETH":
+    #     #     pay_token  = response.json()['collection']['payment_tokens'][1]['symbol']
+    #     # floor_price = str(response.json()['collection']['stats']['floor_price'])
+    #     # floor_price_num = response.json()['collection']['stats']['floor_price']
+    #     # image = response.json()['collection']['featured_image_url']
+    #     # if response.json()['collection']['featured_image_url'] is None:
+    #     #     image = response.json()['collection']['image_url']
+    #     # if project == 'the-mars-martians':
+    #     #     image = response.json()['collection']['image_url']
+    #     # if project == 'wade-f-f':
+    #     #     image = 'https://pbs.twimg.com/profile_banners/1543900980730679298/1660888833/1500x500'
+    #     twitter_id = response.json()['collection']['twitter_username']
+    #     show_fl_price = floor_price+' '+pay_token
+    #     show_usd_price = floor_price_num*usd_price
+    #     show_krw_price = show_usd_price*upbit_get_usd_krw()
+    #     show_jpy_price = show_krw_price/upbit_get_jpy_krw()*100
+    #     embed = discord.Embed(title=project_name ,description='', color=0x3498db)
+    #     embed.add_field(name="Floor Price", value=show_fl_price, inline=True)
+    #     embed.add_field(name="\u200b", value="\u200b", inline=True)
+    #     embed.add_field(name="\u200b", value="\u200b", inline=True)
+    #     embed.add_field(name="USD Price", value='$'+str(format(round(show_usd_price,3),',')), inline=True)
+    #     embed.add_field(name="KRW Price", value=str(format(round(show_krw_price,3),','))+'WON', inline=True)
+    #     embed.add_field(name="JPY Price", value=str(format(round(show_jpy_price,3),','))+'¥', inline=True)
+    #     embed.add_field(name="Open Sea", value=f"[link](https://opensea.io/collection/{project})", inline=True)
+    #     embed.add_field(name="Twitter", value=f"[link](https://twitter.com/{twitter_id})", inline=True)
+    #     embed.add_field(name="\u200b", value="\u200b", inline=True)
+    #     embed.set_footer(text="Honey Bottle🍯 | Badak")
+    #     embed.set_image(url=image)
+    #     await interaction.response.send_message(embed=embed) # f-string 사용
+    # except KeyError:
+    #     embed = discord.Embed(title="Error" ,description='Wrong Name', color=0xe74c3c)
+    #     await interaction.response.send_message(embed=embed,ephemeral = True)
+    # except TypeError:
+    #     embed = discord.Embed(title="Error" ,description='There is no such project', color=0xe74c3c)
+    #     await interaction.response.send_message(embed=embed,ephemeral = True)
+        
 token=os.environ.get('token')      
 port = int(os.environ.get("PORT", 17995))
 bot.run(token) # 봇 실행

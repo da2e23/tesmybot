@@ -459,7 +459,7 @@ async def magiceden_project(interaction: nextcord.Interaction,
     payload={}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)
-    project_name  = response.json()['symbol']
+    project_name  = response.json()
     print(project_name)
     # try:
     #     print(">>>>>>>>>>>>>>>>>>>>>>> 바닥가 검색")

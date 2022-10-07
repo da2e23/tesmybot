@@ -453,7 +453,7 @@ async def krw_to_usd(interaction: nextcord.Interaction,
 
 @bot.slash_command(description="매직에덴 바닥가(Magic Eden Floor Price")
 async def magiceden_project(interaction: nextcord.Interaction,
-    project: int = SlashOption(name="project", description="프로젝트 명을 입력하세요 (Enter Project Name)"),
+    project: str = SlashOption(name="project", description="프로젝트 명을 입력하세요 (Enter Project Name)"),
     ):
     url = "api-devnet.magiceden.dev/v2/collections/{project}/stats"
     payload={}
